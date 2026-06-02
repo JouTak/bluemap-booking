@@ -1,7 +1,7 @@
 plugins {
     `kotlin-dsl`
-    kotlin("jvm") version "1.9.0"
-    kotlin("plugin.serialization") version "2.1.0"
+    kotlin("jvm") version "2.3.0"
+    kotlin("plugin.serialization") version "2.3.0"
 }
 
 repositories {
@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     fun pluginDep(id: String, version: String) = "${id}:${id}.gradle.plugin:${version}"
-    val kotlinVersion = "2.1.0"
+    val kotlinVersion = "2.3.0"
 
     compileOnly(kotlin("gradle-plugin", kotlinVersion))
     runtimeOnly(kotlin("gradle-plugin", kotlinVersion))
@@ -25,17 +25,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.+")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-    // Fabric implementation
-    implementation("net.fabricmc:fabric-loom:1.8-SNAPSHOT")
-    implementation(pluginDep("io.github.juuxel.loom-quiltflower", "1.9.0"))
+    // Fabric implementation (disabled: Loom expects Java 17, blocks the Paper build on 26.1)
+    // implementation("net.fabricmc:fabric-loom:1.8-SNAPSHOT")
+    // implementation(pluginDep("io.github.juuxel.loom-quiltflower", "1.9.0"))
 
     // Paper implementation
-    implementation(pluginDep("io.papermc.paperweight.userdev", "2.0.0-beta.19"))
+    implementation(pluginDep("io.papermc.paperweight.userdev", "2.0.0-beta.21"))
     implementation(pluginDep("xyz.jpenilla.run-paper", "3.0.0"))
 
     implementation(pluginDep("com.gradleup.shadow", "9.2.2"))
     implementation(pluginDep("com.modrinth.minotaur", "2.+"))
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }

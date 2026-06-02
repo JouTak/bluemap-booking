@@ -10,19 +10,16 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("26.1.2.build.+")
     compileOnly("de.miraculixx:kpaper:1.2.1")
-    compileOnly("dev.jorel:commandapi-paper-core:11.0.0")
-    implementation("dev.jorel:commandapi-kotlin-paper:11.1.0")
-    implementation("dev.jorel:commandapi-kotlin-core:11.1.0")
-    implementation("dev.jorel:commandapi-paper-shade:11.1.0")
-
-
-
+    compileOnly("dev.jorel:commandapi-paper-core:11.2.0")
+    implementation("dev.jorel:commandapi-kotlin-paper:11.2.0")
+    implementation("dev.jorel:commandapi-kotlin-core:11.2.0")
+    implementation("dev.jorel:commandapi-paper-shade:11.2.0")
 }
 
-tasks {
-    assemble {
-        dependsOn(reobfJar)
+paperweight {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
