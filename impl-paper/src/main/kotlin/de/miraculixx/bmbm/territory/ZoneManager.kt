@@ -103,6 +103,10 @@ object ZoneManager {
     fun load() {
         zones.clear()
         bannerIndex.clear()
+        val legacyFolder = File(PluginManager.dataFolder, "marker")
+        if (legacyFolder.exists() && legacyFolder.listFiles()?.isNotEmpty() == true) {
+            console.sendMessage(prefix + cmp("Legacy point marker data found in '${legacyFolder.path}' - it is no longer loaded since territory zones replaced point markers (see README)"))
+        }
         val file = storageFile()
         if (!file.exists()) return
         val storage = try {

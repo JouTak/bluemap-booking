@@ -1,98 +1,93 @@
 package de.miraculixx.bmbm.commands
 
-import de.bluecolored.bluemap.api.markers.POIMarker
 import de.miraculixx.bmbm.PluginManager
-import de.miraculixx.bmbm.map.MarkerManager
 import de.miraculixx.bmbm.map.gui.storageBuilder
+import de.miraculixx.bmbm.territory.ZoneManager
+import de.miraculixx.bmbm.territory.model.Zone
 import de.miraculixx.bmbm.utils.messages.cHighlight
 import de.miraculixx.bmbm.utils.messages.cMark
 import de.miraculixx.kpaper.extensions.bukkit.cmp
 import de.miraculixx.kpaper.extensions.bukkit.plus
-import de.miraculixx.kpaper.extensions.worlds
 import de.miraculixx.kpaper.items.customModel
 import de.miraculixx.kpaper.items.itemStack
 import de.miraculixx.kpaper.items.meta
 import de.miraculixx.kpaper.items.name
 import de.miraculixx.kpaper.localization.msg
-import dev.jorel.commandapi.CommandAPICommand
+import dev.jorel.commandapi.kotlindsl.asyncPlayerProfileArgument
 import dev.jorel.commandapi.kotlindsl.commandTree
 import dev.jorel.commandapi.kotlindsl.literalArgument
-import dev.jorel.commandapi.kotlindsl.asyncPlayerProfileArgument
 import dev.jorel.commandapi.kotlindsl.playerExecutor
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.*
+import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.OfflinePlayer
+import org.bukkit.Sound
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.inventory.meta.SkullMeta
 import org.bukkit.persistence.PersistentDataType
-import java.util.*
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 class OverviewCommand {
+    private val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy").withZone(ZoneId.systemDefault())
+
     val command = commandTree("bmbanner") {
         withPermission("bmb.overview")
         withAliases("bmb")
         literalArgument("global") {
             playerExecutor { player, _ ->
-                val markers = MarkerManager.getMarkers()
-                openGUI(player, null, markers)
+                openGUI(player, null, ZoneManager.all())
             }
         }
         asyncPlayerProfileArgument("target") {
             playerExecutor { player, args ->
                 val target = args[0] as OfflinePlayer
-                val markers = MarkerManager.getMarkers(target.uniqueId)
-                if (markers.isEmpty()) {
-                    player.sendMessage(msg("command.no-marker", listOf(target.name ?: "Unknown")))
+                val zones = ZoneManager.zonesOf(target.uniqueId)
+                if (zones.isEmpty()) {
+                    player.sendMessage(msg("command.no-zones", listOf(target.name ?: "Unknown")))
                     return@playerExecutor
                 }
-                openGUI(player, target, markers)
+                openGUI(player, target, zones)
             }
         }
     }
-    private fun openGUI(player: Player, target: OfflinePlayer?, markers: Map<POIMarker, String>) {
+
+    private fun openGUI(player: Player, target: OfflinePlayer?, zones: List<Zone>) {
         storageBuilder {
-            title = cmp("Banner Markers - ", cHighlight, bold = true) + cmp(target?.name ?: "Global", cHighlight)
+            title = cmp("Banner Zones - ", cHighlight, bold = true) + cmp(target?.name ?: "Global", cHighlight)
             header = itemStack(Material.PLAYER_HEAD) {
                 meta<SkullMeta> {
                     owningPlayer = target
-                    name = cmp("${target?.name}'s Marker", cHighlight, bold = true)
-                    lore(listOf(cmp(target?.uniqueId.toString(), NamedTextColor.DARK_GRAY)))
+                    name = cmp("${target?.name ?: "Global"} Zones", cHighlight, bold = true)
+                    lore(listOf(cmp(target?.uniqueId?.toString() ?: "All zones", NamedTextColor.DARK_GRAY)))
                 }
             }
             filterable = true
-            items = buildList {
-                markers.forEach { (marker, worldName) ->
-                    val world = worlds.firstOrNull { it.name.equals(worldName, true) } ?: return@forEach
-                    val material = when (world.environment) {
-                        World.Environment.NORMAL -> Material.GRASS_BLOCK
-                        World.Environment.NETHER -> Material.NETHERRACK
-                        World.Environment.THE_END -> Material.END_STONE
-                        World.Environment.CUSTOM -> Material.CRAFTING_TABLE
+            items = zones.map { zone ->
+                itemStack(Material.valueOf("${zone.color.name}_BANNER")) {
+                    meta {
+                        name = cmp(zone.name, cHighlight)
+                        customModel = 1
+                        persistentDataContainer.set(
+                            NamespacedKey(PluginManager, "zone-id"),
+                            PersistentDataType.STRING,
+                            zone.id.toString()
+                        )
+                        val owner = zone.owner?.let { Bukkit.getOfflinePlayer(it).name ?: "?" } ?: "State"
+                        lore(
+                            listOf(
+                                cmp("World: ", cMark) + cmp(zone.world),
+                                cmp("Owner: ", cMark) + cmp(owner),
+                                cmp("Banners: ", cMark) + cmp(zone.banners.size.toString()),
+                                cmp("Created: ", cMark) + cmp(dateFormat.format(zone.createdAt)),
+                                Component.empty(),
+                                cmp("Click » ") + cmp("Teleport", cMark),
+                                cmp("Shift Click » ") + cmp("Delete Zone", cMark)
+                            )
+                        )
                     }
-                    add(
-                        itemStack(material) {
-                            meta {
-                                name = cmp(marker.label, cHighlight)
-                                customModel = 1
-                                val vector = marker.position
-                                persistentDataContainer.set(
-                                    NamespacedKey(PluginManager, "marker-${UUID.randomUUID()}"),
-                                    PersistentDataType.STRING,
-                                    "${vector.x}:${vector.y}:${vector.z}:$worldName:${target?.uniqueId}"
-                                )
-                                lore(
-                                    listOf(
-                                        cmp("World: ", cMark) + cmp(world.name),
-                                        cmp("Location: ", cMark) + cmp("${vector.x} ${vector.y} ${vector.z}"),
-                                        cmp("Marker Type: ", cMark) + cmp(marker.type),
-                                        Component.empty(),
-                                        cmp("Click » ") + cmp("Teleport", cMark),
-                                        cmp("Shift Click » ") + cmp("Delete Marker", cMark)
-                                    )
-                                )
-                            }
-                        }
-                    )
                 }
             }
         }.open()
