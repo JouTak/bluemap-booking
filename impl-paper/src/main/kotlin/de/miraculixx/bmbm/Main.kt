@@ -76,7 +76,7 @@ class Main : KPaper() {
         assetsLoader.loadImages(it)
         Configs.entries.forEach { c -> ConfigManager.reload(c) }
         val config = ConfigManager.getConfig(Configs.SETTINGS)
-        val languages = listOf("en_US", "de_DE").map { it to javaClass.getResourceAsStream("/language/$it.yml") }
+        val languages = listOf("en_US", "de_DE", "ru_RU", "fr_FR").map { it to javaClass.getResourceAsStream("/language/$it.yml") }
         localization = Localization(File("${dataFolder}/language"), config.getString("language") ?: "en_US", languages)
         ZoneRenderer.connect(it)
         listener.forEach { listener -> listener.register() }
