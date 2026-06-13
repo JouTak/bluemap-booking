@@ -2,10 +2,12 @@ package de.miraculixx.bmbm
 
 import de.bluecolored.bluemap.api.BlueMapAPI
 import de.miraculixx.bmbm.commands.OverviewCommand
-import de.miraculixx.bmbm.map.MarkerManager
-import de.miraculixx.bmbm.map.events.BlockBreakListener
-import de.miraculixx.bmbm.map.events.BlockPlaceListener
 import de.miraculixx.bmbm.map.gui.ClickManager
+import de.miraculixx.bmbm.territory.ZoneManager
+import de.miraculixx.bmbm.territory.ZoneRenderer
+import de.miraculixx.bmbm.territory.events.ZonePlaceListener
+import de.miraculixx.bmbm.territory.events.ZoneProtectionListener
+import de.miraculixx.bmbm.territory.events.ZoneValidationListener
 import de.miraculixx.bmbm.utils.APIConnector
 import de.miraculixx.bmbm.utils.GlobalListener
 import de.miraculixx.bmbm.utils.Listener
@@ -53,7 +55,8 @@ class Main : KPaper() {
 
         // Load Content
         assetsLoader = MarkerImages()
-        listener = listOf(BlockBreakListener(), BlockPlaceListener(), ClickManager())
+        ZoneManager.load()
+        listener = listOf(ZonePlaceListener(), ZoneProtectionListener(), ZoneValidationListener(), ClickManager())
         OverviewCommand()
 
         BlueMapAPI.onEnable(onBlueMapEnable)
@@ -64,18 +67,18 @@ class Main : KPaper() {
         CommandAPI.onDisable()
         BlueMapAPI.unregisterListener(onBlueMapEnable)
         BlueMapAPI.unregisterListener(onBlueMapDisable)
-        MarkerManager.saveAllMarker()
+        ZoneManager.save()
         logger.info("Successfully saved all data! Good Bye :)")
     }
 
     private val onBlueMapEnable = Consumer<BlueMapAPI> {
         logger.info("Connect to BlueMap API...")
         assetsLoader.loadImages(it)
-        MarkerManager.loadAllMarker(it)
         Configs.entries.forEach { c -> ConfigManager.reload(c) }
         val config = ConfigManager.getConfig(Configs.SETTINGS)
-        val languages = listOf("en_US", "de_DE").map { it to javaClass.getResourceAsStream("/language/$it.yml") }
+        val languages = listOf("en_US", "de_DE", "ru_RU", "fr_FR").map { it to javaClass.getResourceAsStream("/language/$it.yml") }
         localization = Localization(File("${dataFolder}/language"), config.getString("language") ?: "en_US", languages)
+        ZoneRenderer.connect(it)
         listener.forEach { listener -> listener.register() }
         logger.info("Successfully enabled Banner Marker addition!")
     }
@@ -84,7 +87,8 @@ class Main : KPaper() {
         logger.info("Disconnecting from BlueMap API...")
         listener.forEach { listener -> listener.unregister() }
         assetsLoader.unloadImages()
-        MarkerManager.saveAllMarker()
+        ZoneRenderer.disconnect()
+        ZoneManager.save()
         logger.info("Successfully saved all data. Waiting for BlueMap to reload...")
     }
 }

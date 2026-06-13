@@ -8,26 +8,52 @@
 #          que vous pouvez utiliser : <input-i> #
 #-----------------------------------------------#
 
-version: 1.0.0
-author: Miraculixx
+version: 2.0.0
+author: Miraculixx & JouTak
 
+
+zone:
+  # Input 1 -> Zone Name | Input 2 -> Banner Amount
+  created: "<gray>Zone <white><input-1></white> créée ! Elle apparaît comme un point sur la carte. Placez d'autres bannières du même nom (accroupi) pour délimiter une surface"
+  rectangle: "<gray>La zone <white><input-1></white> apparaît maintenant comme un rectangle sur la carte"
+  polygon: "<gray>La zone <white><input-1></white> apparaît maintenant comme un polygone sur la carte"
+  banner-added: "<gray>Bannière ajoutée à la zone <white><input-1></white> <dark_gray>(<gray><input-2> bannières</gray>)"
+  banner-removed: "<gray>Bannière retirée de la zone <white><input-1></white> <dark_gray>(<gray><input-2> restantes</gray>)"
+  deleted: "<gray>La zone <white><input-1></white> a été retirée de la carte"
+  # Input 1 -> Zone Name | Input 2 -> Banner Amount
+  banner-lost: "<yellow>Quelqu'un a cassé une bannière de votre zone <white><input-1></white> ! <dark_gray>(<gray><input-2> restantes</gray>)"
+  lost: "<red>Votre zone <white><input-1></white> a été entièrement supprimée - sa dernière bannière a disparu !"
+  # Input 1 -> Zone Name | Input 2 -> Days Left
+  protected: "<red>Cette bannière appartient à la zone <white><input-1></white> et reste protégée encore <input-2> jour(s)"
+  # Input 1 -> Max Amount
+  limit: "<red>Vous avez atteint votre nombre maximum de zones ! <dark_gray>(<gray><input-1></gray>)"
+  # Input 1 -> Zone Name
+  state-no-permission: "<red>Le nom <white><input-1></white> est réservé aux territoires d'État !"
+  # Input 1 -> Max Length
+  name-too-long: "<red>Le nom d'une zone ne peut pas dépasser <input-1> caractères !"
+  # Input 1 -> World Name
+  blocked-world: "<red>Ce monde est désactivé. Aucune zone ne sera créée"
+  detail:
+    type-player: "Territoire de joueur"
+    type-state: "Territoire d'État"
+    # Input 1 -> Owner Name
+    owner: "Propriétaire : <input-1>"
+    # Input 1 -> Date
+    founded: "Fondée : <input-1>"
+    # Input 1 -> Banner Amount | Input 2 -> Area
+    size: "Bannières : <input-1> · Surface : ~<input-2> blocs"
+    # Input 1 -> Protection Status
+    protection: "Protection : <input-1>"
+    # Input 1 -> Days Left
+    protection-days: "encore <input-1> jour(s)"
+    protection-expired: "expirée"
+    protection-permanent: "permanente"
 
 event:
-  # Input 1 -> Quantité maximale
-  limited: "<red>Vous avez atteint le nombre maximum de marqueurs ! <dark_gray>(<gray><input-1></gray>)\nAccroupissez-vous pour en placer un sans créer de marqueur"
-  # Input 1 -> Quantité actuelle | Input 2 -> Quantité maximale
-  place: "<gray>Vous avez créé un nouveau marqueur sur la carte web ! <dark_gray>(<gray><input-1>/<input-2></gray>)"
-  break: "<gray>Vous avez supprimé votre marqueur sur la carte web ! <dark_gray>(<gray><input-1>/<input-2></gray>)"
-  # Input 1 -> Nom du monde
-  blocked-world: "<red>Ce monde est désactivé. Aucun marqueur ne sera créé sur la carte web"
-  # Input 1 -> Position de téléportation
-  teleport: "<green>Vous serez téléporté dès que le serveur aura chargé tous les chunks... <dark_gray>[<gray><click:run_command:'/tp <input-1>'><hover:show_text:'<gray>Se téléporter directement<br><red>Cela peut affecter les performances du serveur'>Téléporter maintenant</hover></click></gray>]"
-  # Input 1 -> Nom du joueur | Input 2 -> Nom du monde
-  delete: "<green>Marqueur supprimé avec succès ! <dark_gray>[<gray><click:run_command:'/bmb'><hover:show_text:'<gray>Cliquez pour rouvrir les marqueurs de <input-1>'>Rouvrir l’interface</hover></click></gray>]"
-  sneak: "<grey>Aucun marqueur créé en étant accroupi"
-  sneak-required: "<grey>Aucun marqueur créé si vous n’êtes pas accroupi"
+  # Input 1 -> Teleport Location
+  teleport: "<green>Vous serez téléporté dès que le serveur aura chargé tous les chunks... <dark_gray>[<gray><click:run_command:'/tp <input-1>'><hover:show_text:'<gray>Téléportation immédiate<br><red>Peut impacter les performances'>Téléporter maintenant</hover></click></gray>]"
 
 command:
   no-player: "<red>Cette commande ne fonctionne que pour les joueurs !"
-  # Input 1 -> Nom du joueur
-  no-marker: "<red>Le joueur <underlined><input-1></underlined> n’a aucun marqueur !"
+  # Input 1 -> Player Name
+  no-zones: "<red>Le joueur <underlined><input-1></underlined> n'a aucune zone !"

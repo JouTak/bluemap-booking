@@ -1,78 +1,68 @@
 #---------------------------------------------#
-#               Marker Settings               #
+#               General Settings              #
 #---------------------------------------------#
 
-# The Marker-Set label, where all markers are stored.
-# Value: Short Text
-marker-set-label: "Banner Marker"
-
-# If all banner markers should be visible by default.
-# If false, users can enable the Marker-Set manually to see all markers.
-# Value: true / false
-marker-set-visible: true
-
-# If the Marker-Set should be toggleable.
-# If false, users are forced to use the setting above.
-# Value: true / false
-marker-set-toggleable: true
-
-# After how many blocks away (zoomed out) banner markers disappear.
-# Set to -1.0 for unlimited vision.
-# Value: double (floating number)
-max-view-distance: -1.0
-
-# Suffix for banner markers to identify the player owner.
-# Leave it blanc for no suffix. You can use <player> as placeholder.
-# Value: string
-label-suffix: " - <player>"
-
-
-
-#---------------------------------------------#
-#          Marker Behavior Settings           #
-#---------------------------------------------#
-
-# Change it to any name of a file located in the language folder (en_US & de_DE provided)
+# Change it to any name of a file located in the language folder (en_US, de_DE, ru_RU & fr_FR provided)
 language: "en_US"
 
-# Block other players from breaking your banner marker.
-# Bypass Permission: banner-marker.event.break-others
-# WARNING - Currently disabled because of block update bugs that causes exploits
-# Value: true / false
-block-others-break: false
-
-# The maximum amount of banner markers a player can set.
-# This only blocks NEW marker!
-# Set to -1 for no limit (unlimited markers).
-# The highest permission a player owns defines the max amount of markers.
-# Permission: banner-marker.max-marker.<rank> (default applies to everyone)
-# Value: rank - integer
-max-marker-per-player:
-  default: 10
-  operator: -1
-
-# If players should be notified about marker updates they trigger.
-# Change those messages in the messages.yml file.
+# If players should be notified about zone updates they trigger.
+# Change those messages in the language files.
 # Value: true / false
 notify-player: true
 
-# You can disable some worlds to block players from placing markers.
+# You can disable some worlds to block players from creating zones.
 # Add a new dash with the name of your world to block it.
 disabled-worlds:
-  - "name-of-block-world"
-  - "different blocked world"
+  - "name-of-blocked-world"
 
-# Do not place markers if the player sneaked while placing a marker.
-# Activate this setting to prevent unwanted markers on your map!
-# Value: true / false
-sneak-blocking: false
-
-# Do not place markers if the player isn't sneaked while placing a marker.
-# Activate this setting to prevent unwanted markers on your map!
-# Value: true / false
-sneak-required: false
-
-# Words/names that are disabled and will not be placed onto the map.
+# Words/names that are disabled and will not create zones.
 # Use this for swear protection or blacklisted words.
 blocked-words:
   - "Omnious Banner"
+
+
+#---------------------------------------------#
+#              Territory Settings             #
+#---------------------------------------------#
+
+territory:
+  # How many days after zone creation its banners stay protected from other players.
+  # While protected, only the owner (and territory.admin) can break zone banners.
+  # The check happens at break time - nothing is scheduled.
+  # Set to -1 to never expire.
+  # Value: integer (days)
+  protect-days: 30
+
+  # The maximum amount of zones a player can own.
+  # The highest permission a player owns defines the limit.
+  # Permission: territory.zone-limit.<rank> (default applies to everyone)
+  # Set to -1 for no limit.
+  zone-limit:
+    default: 1
+    operator: -1
+
+  # Maximum length of a zone name (banner name).
+  max-name-length: 32
+
+  # Marker styles on the web map. Opacity: 0.0 - 1.0
+  style:
+    player:
+      fill-opacity: 0.30
+      line-opacity: 0.85
+      line-width: 2
+    state:
+      fill-opacity: 0.12
+      line-opacity: 0.90
+      line-width: 3
+
+  # Registry of state territory names (exact match, ignoring case).
+  # Placing a banner with one of those names requires the permission
+  # 'territory.state.place' and creates a shared state zone that never expires.
+  state-names:
+    - "Spawn"
+
+  # The Marker-Set all zones are stored in.
+  marker-set:
+    label: "Territories"
+    visible: true
+    toggleable: true

@@ -8,24 +8,52 @@
 #           you can use - <input-i>             #
 #-----------------------------------------------#
 
-version: 1.0.0
-author: Miraculixx
+version: 2.0.0
+author: Miraculixx & JouTak
+
+
+zone:
+  # Input 1 -> Zone Name | Input 2 -> Banner Amount
+  created: "<gray>Zone <white><input-1></white> erstellt! Sie erscheint als Punkt auf der Web-Map. Platziere weitere Banner mit dem gleichen Namen (schleichend), um eine Fläche abzustecken"
+  rectangle: "<gray>Zone <white><input-1></white> wird auf der Web-Map nun als Rechteck angezeigt"
+  polygon: "<gray>Zone <white><input-1></white> wird auf der Web-Map nun als Polygon angezeigt"
+  banner-added: "<gray>Banner zur Zone <white><input-1></white> hinzugefügt <dark_gray>(<gray><input-2> Banner</gray>)"
+  banner-removed: "<gray>Banner aus der Zone <white><input-1></white> entfernt <dark_gray>(<gray><input-2> übrig</gray>)"
+  deleted: "<gray>Zone <white><input-1></white> wurde von der Web-Map entfernt"
+  # Input 1 -> Zone Name | Input 2 -> Banner Amount
+  banner-lost: "<yellow>Jemand hat ein Banner deiner Zone <white><input-1></white> zerstört! <dark_gray>(<gray><input-2> übrig</gray>)"
+  lost: "<red>Deine Zone <white><input-1></white> wurde vollständig entfernt - ihr letztes Banner ist weg!"
+  # Input 1 -> Zone Name | Input 2 -> Days Left
+  protected: "<red>Dieses Banner gehört zur Zone <white><input-1></white> und ist noch <input-2> Tag(e) geschützt"
+  # Input 1 -> Max Amount
+  limit: "<red>Du hast bereits die maximale Anzahl an Zonen! <dark_gray>(<gray><input-1></gray>)"
+  # Input 1 -> Zone Name
+  state-no-permission: "<red>Der Name <white><input-1></white> ist für Staatsgebiete reserviert!"
+  # Input 1 -> Max Length
+  name-too-long: "<red>Zonennamen dürfen nicht länger als <input-1> Zeichen sein!"
+  # Input 1 -> World Name
+  blocked-world: "<red>Diese Welt ist deaktiviert. Es werden keine Zonen erstellt"
+  detail:
+    type-player: "Spieler-Territorium"
+    type-state: "Staatsgebiet"
+    # Input 1 -> Owner Name
+    owner: "Besitzer: <input-1>"
+    # Input 1 -> Date
+    founded: "Gegründet: <input-1>"
+    # Input 1 -> Banner Amount | Input 2 -> Area
+    size: "Banner: <input-1> · Fläche: ~<input-2> Blöcke"
+    # Input 1 -> Protection Status
+    protection: "Schutz: <input-1>"
+    # Input 1 -> Days Left
+    protection-days: "noch <input-1> Tag(e)"
+    protection-expired: "abgelaufen"
+    protection-permanent: "dauerhaft"
 
 event:
-  # Input 1 -> Max Amount
-  limited: "<red>Du hast die maximale Anzahl an Banner Markern erreicht! <dark_gray>(<gray><input-1></gray>)\nSneake beim platzieren um keinen Marker zu setzen"
-  # Input 1 -> Current Amount | Input 2 -> Max Amount
-  place: "<gray>Du hast einen neuen Marker erstellt! <dark_gray>(<gray><input-1>/<input-2></gray>)"
-  break: "<gray>Du hast einen alten Marker entfernt! <dark_gray>(<gray><input-1>/<input-2></gray>)"
-  # Input 1 -> World Name
-  blocked-world: "<red>In dieser Welt können keine Marker gesetzt werden!"
   # Input 1 -> Teleport Location
-  teleport: "<green>Du wirst gleich teleportiert... <dark_gray>[<gray><click:run_command:'/tp <input-1>'><hover:show_text:'<gray>Teleportiere direkt<br><red>Dies kann die Server performance beeinträchtigen'>Teleportiere jetzt</hover></click></gray>]"
-  # Input 1 -> Player Name | Input 2 -> World Name
-  delete: "<green>Marker erfolgreich gelöscht! <dark_gray>[<gray><click:run_command:'/bmb'><hover:show_text:'<gray>Drücke hier um <input-1> Markers wider zu öffnen'>Öffne GUI</hover></click></gray>]"
-  sneak: "<grey>Keine Marker platziert während sneaking"
+  teleport: "<green>Du wirst teleportiert, sobald der Server alle Chunks geladen hat... <dark_gray>[<gray><click:run_command:'/tp <input-1>'><hover:show_text:'<gray>Direkt teleportieren<br><red>Kann die Tick-Rate beeinflussen'>Jetzt teleportieren</hover></click></gray>]"
 
 command:
-  no-player: "<red>Dieser Befehl ist nur für Spieler!"
+  no-player: "<red>Dieser Befehl funktioniert nur für Spieler!"
   # Input 1 -> Player Name
-  no-marker: "<red>Der Spieler <underlined><input-1></underlined> hat keine Marker!"
+  no-zones: "<red>Der Spieler <underlined><input-1></underlined> hat keine Zonen!"

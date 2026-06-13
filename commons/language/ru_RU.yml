@@ -8,25 +8,52 @@
 #           you can use - <input-i>             #
 #-----------------------------------------------#
 
-version: 1.0.0
-author: Miraculixx
+version: 2.0.0
+author: Miraculixx & JouTak
 
+
+zone:
+  # Input 1 -> Zone Name | Input 2 -> Banner Amount
+  created: "<gray>Зона <white><input-1></white> создана! На карте она отображается точкой. Поставьте ещё баннеры с тем же названием (на шифте), чтобы очертить область"
+  rectangle: "<gray>Зона <white><input-1></white> теперь отображается на карте прямоугольником"
+  polygon: "<gray>Зона <white><input-1></white> теперь отображается на карте полигоном"
+  banner-added: "<gray>Баннер добавлен к зоне <white><input-1></white> <dark_gray>(<gray><input-2> баннеров</gray>)"
+  banner-removed: "<gray>Баннер убран из зоны <white><input-1></white> <dark_gray>(<gray>осталось: <input-2></gray>)"
+  deleted: "<gray>Зона <white><input-1></white> удалена с карты сервера"
+  # Input 1 -> Zone Name | Input 2 -> Banner Amount
+  banner-lost: "<yellow>Кто-то сломал баннер вашей зоны <white><input-1></white>! <dark_gray>(<gray>осталось: <input-2></gray>)"
+  lost: "<red>Ваша зона <white><input-1></white> полностью удалена - сломан её последний баннер!"
+  # Input 1 -> Zone Name | Input 2 -> Days Left
+  protected: "<red>Этот баннер принадлежит зоне <white><input-1></white> и защищён ещё <input-2> дн."
+  # Input 1 -> Max Amount
+  limit: "<red>У вас уже максимум зон! <dark_gray>(<gray><input-1></gray>)<red> Снесите баннеры старой зоны или расширяйте существующую"
+  # Input 1 -> Zone Name
+  state-no-permission: "<red>Название <white><input-1></white> зарезервировано под государственные территории!"
+  # Input 1 -> Max Length
+  name-too-long: "<red>Название зоны не может быть длиннее <input-1> символов!"
+  # Input 1 -> World Name
+  blocked-world: "<red>Этот мир отключён, зоны в нём не создаются"
+  detail:
+    type-player: "Частная территория"
+    type-state: "Государственная территория"
+    # Input 1 -> Owner Name
+    owner: "Владелец: <input-1>"
+    # Input 1 -> Date
+    founded: "Основана: <input-1>"
+    # Input 1 -> Banner Amount | Input 2 -> Area
+    size: "Баннеров: <input-1> · Площадь: ~<input-2> блоков"
+    # Input 1 -> Protection Status
+    protection: "Защита: <input-1>"
+    # Input 1 -> Days Left
+    protection-days: "ещё <input-1> дн."
+    protection-expired: "истекла"
+    protection-permanent: "бессрочная"
 
 event:
-  # Input 1 -> Max Amount
-  limited: "<red>У вас превышено максимальное количество маркеров! <dark_gray>(<gray><input-1></gray>)\nПрисядьте, чтобы поставить его без маркера"
-  # Input 1 -> Current Amount | Input 2 -> Max Amount
-  place: "<gray>Вы создали новый маркер на карте сервера! <dark_gray>(<gray><input-1>/<input-2></gray>)"
-  break: "<gray>Вы удалили ваш маркер с карты сервера! <dark_gray>(<gray><input-1>/<input-2></gray>)"
-  # Input 1 -> World Name
-  blocked-world: "<red>Этот мир отключен, поэтому маркер не будет создан на карте сервера"
   # Input 1 -> Teleport Location
-  teleport: "<green>Вы телепортируйтесь, как только сервер загрузит все чанки... <dark_gray>[<gray><click:run_command:'/tp <input-1>'><hover:show_text:'<gray>Телепорт сразу<br><red>Это может вызвать лаги сервера'>Телепортироваться сейчас</hover></click></gray>]"
-  # Input 1 -> Player Name | Input 2 -> World Name
-  delete: "<green>Маркер был успешно удалён! <dark_gray>[<gray><click:run_command:'/bmb'><hover:show_text:'<gray>Нажмите, чтобы открыть маркеры <input-1> заново'>Открыть меню</hover></click></gray>]"
-  sneak: "<grey>Маркеры не создаются, если вы на шифте"
+  teleport: "<green>Вы телепортируетесь, как только сервер загрузит все чанки... <dark_gray>[<gray><click:run_command:'/tp <input-1>'><hover:show_text:'<gray>Телепорт сразу<br><red>Это может вызвать лаги сервера'>Телепортироваться сейчас</hover></click></gray>]"
 
 command:
   no-player: "<red>Эта команда только для игроков!"
   # Input 1 -> Player Name
-  no-marker: "<red>У игрока <underlined><input-1></underlined> нет маркеров!"
+  no-zones: "<red>У игрока <underlined><input-1></underlined> нет зон!"

@@ -1,8 +1,3 @@
-// Fabric build path disabled. Uses Loom, which expects a Java 17 toolchain. It appears
-// that fabric support is already disabled anyway in settings.gradle.kts.
-// To add Fabric support in the future, uncomment the body below, readd loom in 
-// buildSrc/build.gradle.kts, and update for 26.1.
-/*
 plugins {
     id("fabric-loom")
     id("io.github.juuxel.loom-quiltflower")
@@ -53,4 +48,3 @@ tasks {
         }
     }
 }
-*/

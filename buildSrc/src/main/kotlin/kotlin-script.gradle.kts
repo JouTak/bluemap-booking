@@ -22,25 +22,16 @@ dependencies {
 tasks {
     compileJava {
         options.encoding = "UTF-8"
-        options.release.set(25)
+        options.release.set(21)
     }
     compileKotlin {
-        compilerOptions.jvmTarget.set(JvmTarget.JVM_25)
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
     }
 }
 
 java {
     toolchain { 
-        languageVersion = JavaLanguageVersion.of(25)
-    }
-}
-
-configurations.named("compileClasspath") {
-    attributes {
-        attribute(
-            org.gradle.api.attributes.java.TargetJvmVersion.TARGET_JVM_VERSION_ATTRIBUTE,
-            25
-        )
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 

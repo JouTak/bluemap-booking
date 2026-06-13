@@ -1,25 +1,19 @@
 main: de.miraculixx.bmbm.Main
-version: 158
+version: 201
 name: BlueMap-BannerMarker
-description: "A BlueMap addition plugin. Give your players the option to place markers on the map via the vanilla banner feature!"
-author: Miraculixx
-website: https://miraculixx.de
+description: "A BlueMap addition plugin. Let your players outline territory zones on the map by placing named banners!"
+author: Miraculixx & JouTak
+website: https://github.com/JouTak/bluemap-banner
 load: STARTUP
-api-version: 26.1
+api-version: 1.21
 depend:
   - "BlueMap"
 libraries:
-  - "org.jetbrains.kotlin:kotlin-stdlib:2.3.0"
+  - "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
   - "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
   - "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4"
   - "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
-  - "dev.jorel:commandapi-paper-shade:11.2.0"
-  - "dev.jorel:commandapi-kotlin-paper:11.2.0"
-  - "dev.jorel:commandapi-kotlin-core:11.2.0"
+  - "dev.jorel:commandapi-paper-shade:11.1.0"
+  - "dev.jorel:commandapi-kotlin-paper:11.1.0"
+  - "dev.jorel:commandapi-kotlin-core:11.1.0"
   - "de.miraculixx:kpaper:1.2.1"
-
-commands:
-  banner-marker:
-    permission: banner-marker.command.settings
-    aliases:
-      - bmb
