@@ -1,4 +1,4 @@
-package de.miraculixx.bmbm.territory
+package de.miraculixx.bmbm.booking
 
 import com.flowpowered.math.vector.Vector2d
 import de.bluecolored.bluemap.api.BlueMapAPI
@@ -8,10 +8,10 @@ import de.bluecolored.bluemap.api.markers.POIMarker
 import de.bluecolored.bluemap.api.markers.ShapeMarker
 import de.bluecolored.bluemap.api.math.Color
 import de.bluecolored.bluemap.api.math.Shape
-import de.miraculixx.bmbm.territory.geometry.Point2
-import de.miraculixx.bmbm.territory.geometry.ZonePolygon
-import de.miraculixx.bmbm.territory.model.Zone
-import de.miraculixx.bmbm.territory.model.ZoneType
+import de.miraculixx.bmbm.booking.geometry.Point2
+import de.miraculixx.bmbm.booking.geometry.ZonePolygon
+import de.miraculixx.bmbm.booking.model.Zone
+import de.miraculixx.bmbm.booking.model.ZoneType
 import de.miraculixx.bmbm.utils.cache.bannerImages
 import de.miraculixx.bmbm.utils.config.ConfigManager
 import de.miraculixx.bmbm.utils.config.Configs
@@ -38,13 +38,13 @@ object ZoneRenderer {
         val config = ConfigManager.getConfig(Configs.SETTINGS)
         worlds.forEach { world ->
             val set = MarkerSet.builder()
-                .label(config.getString("territory.marker-set.label") ?: "Territories")
-                .toggleable(config.getBoolean("territory.marker-set.toggleable", true))
-                .defaultHidden(!config.getBoolean("territory.marker-set.visible", true))
+                .label(config.getString("booking.marker-set.label") ?: "Territories")
+                .toggleable(config.getBoolean("booking.marker-set.toggleable", true))
+                .defaultHidden(!config.getBoolean("booking.marker-set.visible", true))
                 .build()
             markerSets[world.name] = set
             api.getWorld(world.uid).ifPresent { bmWorld ->
-                bmWorld.maps.forEach { map -> map.markerSets["TERRITORY_${world.name}"] = set }
+                bmWorld.maps.forEach { map -> map.markerSets["BOOKING_${world.name}"] = set }
             }
         }
         ZoneManager.all().forEach { render(it) }
@@ -91,9 +91,9 @@ object ZoneRenderer {
     private fun buildShape(zone: Zone): Marker {
         val config = ConfigManager.getConfig(Configs.SETTINGS)
         val styleKey = if (zone.type == ZoneType.STATE) "state" else "player"
-        val fillOpacity = config.getDouble("territory.style.$styleKey.fill-opacity", 0.3).toFloat()
-        val lineOpacity = config.getDouble("territory.style.$styleKey.line-opacity", 0.85).toFloat()
-        val lineWidth = config.getInt("territory.style.$styleKey.line-width", 2)
+        val fillOpacity = config.getDouble("booking.style.$styleKey.fill-opacity", 0.3).toFloat()
+        val lineOpacity = config.getDouble("booking.style.$styleKey.line-opacity", 0.85).toFloat()
+        val lineWidth = config.getInt("booking.style.$styleKey.line-width", 2)
 
         val points: List<Point2>
         val area: Int

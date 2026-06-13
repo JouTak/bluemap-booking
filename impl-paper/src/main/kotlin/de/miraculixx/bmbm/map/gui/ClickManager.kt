@@ -1,8 +1,8 @@
 package de.miraculixx.bmbm.map.gui
 
 import de.miraculixx.bmbm.PluginManager
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.ZoneRenderer
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.ZoneRenderer
 import de.miraculixx.bmbm.utils.Listener
 import de.miraculixx.bmbm.utils.messages.plainSerializer
 import de.miraculixx.kpaper.event.SingleListener

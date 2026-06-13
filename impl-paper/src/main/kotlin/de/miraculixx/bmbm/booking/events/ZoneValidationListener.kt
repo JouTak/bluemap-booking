@@ -1,8 +1,8 @@
-package de.miraculixx.bmbm.territory.events
+package de.miraculixx.bmbm.booking.events
 
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.ZoneRenderer
-import de.miraculixx.bmbm.territory.model.BannerPos
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.ZoneRenderer
+import de.miraculixx.bmbm.booking.model.BannerPos
 import de.miraculixx.bmbm.utils.Listener
 import de.miraculixx.bmbm.utils.messages.prefix
 import de.miraculixx.kpaper.event.listen

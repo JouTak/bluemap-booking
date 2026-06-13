@@ -1,11 +1,11 @@
-package de.miraculixx.bmbm.territory
+package de.miraculixx.bmbm.booking
 
 import de.miraculixx.bmbm.PluginManager
-import de.miraculixx.bmbm.territory.model.BannerPos
-import de.miraculixx.bmbm.territory.model.Zone
-import de.miraculixx.bmbm.territory.model.ZoneBanner
-import de.miraculixx.bmbm.territory.model.ZoneStorage
-import de.miraculixx.bmbm.territory.model.ZoneType
+import de.miraculixx.bmbm.booking.model.BannerPos
+import de.miraculixx.bmbm.booking.model.Zone
+import de.miraculixx.bmbm.booking.model.ZoneBanner
+import de.miraculixx.bmbm.booking.model.ZoneStorage
+import de.miraculixx.bmbm.booking.model.ZoneType
 import de.miraculixx.bmbm.utils.config.ConfigManager
 import de.miraculixx.bmbm.utils.config.Configs
 import de.miraculixx.bmbm.utils.messages.cError
@@ -73,12 +73,12 @@ object ZoneManager {
     }
 
     fun maxZones(player: Player): Int {
-        val section = ConfigManager.getConfig(Configs.SETTINGS).getConfigurationSection("territory.zone-limit") ?: return 1
+        val section = ConfigManager.getConfig(Configs.SETTINGS).getConfigurationSection("booking.zone-limit") ?: return 1
         var max = section.getInt("default", 1)
         section.getKeys(false).forEach { rank ->
             if (rank == "default") return@forEach
             val amount = section.getInt(rank)
-            if (player.hasPermission("territory.zone-limit.$rank")) {
+            if (player.hasPermission("booking.zone-limit.$rank")) {
                 if (amount == -1) return -1
                 if (amount > max) max = amount
             }
@@ -88,13 +88,13 @@ object ZoneManager {
 
     fun isBreakableByEveryone(zone: Zone): Boolean {
         if (zone.type == ZoneType.STATE) return false
-        val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("territory.protect-days", 30)
+        val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("booking.protect-days", 30)
         if (days < 0) return false
         return Instant.now().isAfter(zone.createdAt.plus(Duration.ofDays(days.toLong())))
     }
 
     fun protectionDaysLeft(zone: Zone): Long {
-        val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("territory.protect-days", 30)
+        val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("booking.protect-days", 30)
         if (days < 0) return Long.MAX_VALUE
         val remaining = Duration.between(Instant.now(), zone.createdAt.plus(Duration.ofDays(days.toLong())))
         return if (remaining.isNegative) 0 else remaining.plusDays(1).minusNanos(1).toDays()
@@ -105,7 +105,7 @@ object ZoneManager {
         bannerIndex.clear()
         val legacyFolder = File(PluginManager.dataFolder, "marker")
         if (legacyFolder.exists() && legacyFolder.listFiles()?.isNotEmpty() == true) {
-            console.sendMessage(prefix + cmp("Legacy point marker data found in '${legacyFolder.path}' - it is no longer loaded since territory zones replaced point markers (see README)"))
+            console.sendMessage(prefix + cmp("Legacy point marker data found in '${legacyFolder.path}' - it is no longer loaded since booking zones replaced point markers (see README)"))
         }
         val file = storageFile()
         if (!file.exists()) return

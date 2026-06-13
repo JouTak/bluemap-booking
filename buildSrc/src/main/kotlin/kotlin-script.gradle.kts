@@ -3,20 +3,18 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     kotlin("jvm")
     kotlin("plugin.serialization")
-    id("com.modrinth.minotaur")
 }
 
 repositories {
     mavenCentral()
-    maven ( "https://jitpack.io" )
-    maven ( "https://repo.bluecolored.de/releases" )
+    maven("https://repo.bluecolored.de/releases")
 }
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    compileOnly ("de.bluecolored:bluemap-api:2.7.5")
+    compileOnly("de.bluecolored:bluemap-api:2.7.5")
 }
 
 tasks {
@@ -30,24 +28,11 @@ tasks {
 }
 
 java {
-    toolchain { 
+    toolchain {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
-version = "1.1"
-
-modrinth {
-    token.set(System.getenv("MODRINTH_TOKEN"))
-    projectId.set(name) // Project ID or the slug
-    versionNumber.set(version as String)
-    versionType.set("release")
-    uploadFile.set(tasks.build)
-    gameVersions.addAll("1.20.4")
-    loaders.add("fabric")
-    dependencies {
-        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
-        // The type can either be `project` or `version`
-        required.project("bluemap")
-    }
-}
+val baseVersion = rootProject.findProperty("project_version")?.toString() ?: "0.0.0"
+val commitHash = rootProject.findProperty("commitHash")?.toString()
+version = if (commitHash.isNullOrBlank()) baseVersion else "$baseVersion-$commitHash"

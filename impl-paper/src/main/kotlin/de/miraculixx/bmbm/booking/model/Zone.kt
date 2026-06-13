@@ -1,4 +1,4 @@
-package de.miraculixx.bmbm.territory.model
+package de.miraculixx.bmbm.booking.model
 
 import de.miraculixx.bmbm.utils.serializer.DyeColorSerializer
 import de.miraculixx.bmbm.utils.serializer.InstantSerializer

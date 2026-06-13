@@ -23,4 +23,7 @@ sourceSets {
 }
 
 group = "de.miraculixx.bmbm"
-setProperty("module_name", "bmbm")
+
+base {
+    archivesName = "bluemap-booking"
+}

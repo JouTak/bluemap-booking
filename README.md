@@ -1,8 +1,8 @@
-# BlueMap Banner Zones
+# BlueMap Booking
 
 > JouTak fork of [BlueMap Banner Marker](https://github.com/MiraculixxT/bluemap-banner) by Miraculixx.
-> The original point-marker mechanic was replaced with **territory zones**: players outline areas on the
-> [BlueMap](https://modrinth.com/mod/bluemap) web map by placing named banners.
+> The original point-marker mechanic was replaced with **territory booking**: players outline (book) areas
+> on the [BlueMap](https://modrinth.com/mod/bluemap) web map by placing named banners.
 
 ## How it works
 
@@ -22,14 +22,15 @@ Placing a banner normally (without sneaking) does nothing.
 
 Zone banners are physical and stay in the world. They can only be broken by their owner — until the
 configured time (default **30 days** since zone creation) passes. After that anyone may clean them up:
-banners are meant for the initial marking of plans, finished builds speak for themselves.
-Players with the `territory.admin` permission can always break zone banners.
+banners are meant for booking plans, finished builds speak for themselves.
+Players with the `booking.admin` permission can always break zone banners.
 
 ### State territories
 
-Names listed in `territory.state-names` (config) are reserved: placing such a banner requires the
-`territory.state.place` permission and adds it to a shared **state zone** — no single owner, distinct
-style on the map, protection never expires.
+Zone names starting with one of the prefixes from `booking.state-prefixes` (e.g. `JT -`, `ИТМО -`)
+are state territories: placing such a banner requires the `booking.state.place` permission and adds it
+to a shared **state zone** — no single owner, distinct style on the map, protection never expires.
+Each full name is its own zone, so `JT - Spawn` and `JT - Roads` are two separate state zones.
 
 ### Dates
 
@@ -46,28 +47,33 @@ popup on the web map and drive the protection expiry check (evaluated at break t
 | Permission | Effect |
 |---|---|
 | `bmb.overview` | access to the `/bmb` GUI |
-| `territory.zone-limit.<rank>` | zone limit by rank (`territory.zone-limit` config section, default 1) |
-| `territory.state.place` | place/break state territory banners |
-| `territory.admin` | break any zone banner |
+| `booking.zone-limit.<rank>` | zone limit by rank (`booking.zone-limit` config section, default 1) |
+| `booking.state.place` | place/break state territory banners |
+| `booking.admin` | break any zone banner |
 
 ## Configuration
 
-See `settings.yml` — protection duration (`territory.protect-days`), zone limits, marker styles for
-player/state zones, the state name registry and the marker set. Messages live in `language/<lang>.yml`
+See `settings.yml` — protection duration (`booking.protect-days`), zone limits, marker styles for
+player/state zones, the state name prefixes and the marker set. Messages live in `language/<lang>.yml`
 (en_US, de_DE, ru_RU, fr_FR provided) in [MiniMessage](https://webui.advntr.dev/) format. Marker point
 icons can be changed at `assets/marker_<color>.png`. Changes apply after a server restart.
 
-## Migrating from BlueMap Banner Marker
+## Migrating
 
-Legacy point markers (`marker/<world>.json`, `marker/player_markers.json`) are **not loaded** anymore.
-Old banners in the world stay as decoration; players re-mark their territory with sneak-placed banners.
-Zone data is stored in `zones.json`.
+**From BlueMap-BannerMarker v1.x (point markers):** legacy data (`marker/<world>.json`,
+`marker/player_markers.json`) is not loaded anymore. Old banners in the world stay as decoration;
+players re-mark their territory with sneak-placed banners.
+
+**From the territory-zones builds (v200/201):** the plugin was renamed, so:
+1. rename the data folder `plugins/BlueMap-BannerMarker` → `plugins/BlueMap-Booking` (keeps `zones.json` and assets),
+2. in `settings.yml` rename the `territory:` section to `booking:` and replace `state-names` with `state-prefixes`,
+3. update LuckPerms permissions: `territory.*` → `booking.*`.
 
 ## Building
 
 ```
-./gradlew :impl-paper:build
+./gradlew build
 ```
 
-Requires JDK 25. The jar lands in `impl-paper/build/libs/`. Note: this is a 3rd party extension and not
+Requires JDK 21. The jar lands in `impl-paper/build/libs/`. Note: this is a 3rd party extension and not
 official by BlueMap in any way!

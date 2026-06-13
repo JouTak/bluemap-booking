@@ -22,12 +22,12 @@ blocked-words:
 
 
 #---------------------------------------------#
-#              Territory Settings             #
+#               Booking Settings              #
 #---------------------------------------------#
 
-territory:
+booking:
   # How many days after zone creation its banners stay protected from other players.
-  # While protected, only the owner (and territory.admin) can break zone banners.
+  # While protected, only the owner (and booking.admin) can break zone banners.
   # The check happens at break time - nothing is scheduled.
   # Set to -1 to never expire.
   # Value: integer (days)
@@ -35,7 +35,7 @@ territory:
 
   # The maximum amount of zones a player can own.
   # The highest permission a player owns defines the limit.
-  # Permission: territory.zone-limit.<rank> (default applies to everyone)
+  # Permission: booking.zone-limit.<rank> (default applies to everyone)
   # Set to -1 for no limit.
   zone-limit:
     default: 1
@@ -55,14 +55,15 @@ territory:
       line-opacity: 0.90
       line-width: 3
 
-  # Registry of state territory names (exact match, ignoring case).
-  # Placing a banner with one of those names requires the permission
-  # 'territory.state.place' and creates a shared state zone that never expires.
-  state-names:
-    - "Spawn"
+  # Zone names starting with one of those prefixes (ignoring case) are state
+  # territories: placing such a banner requires the permission
+  # 'booking.state.place' and creates a shared state zone that never expires.
+  state-prefixes:
+    - "JT -"
+    - "ИТМО -"
 
   # The Marker-Set all zones are stored in.
   marker-set:
-    label: "Territories"
+    label: "Booking"
     visible: true
     toggleable: true

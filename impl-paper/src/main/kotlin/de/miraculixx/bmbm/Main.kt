@@ -3,13 +3,11 @@ package de.miraculixx.bmbm
 import de.bluecolored.bluemap.api.BlueMapAPI
 import de.miraculixx.bmbm.commands.OverviewCommand
 import de.miraculixx.bmbm.map.gui.ClickManager
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.ZoneRenderer
-import de.miraculixx.bmbm.territory.events.ZonePlaceListener
-import de.miraculixx.bmbm.territory.events.ZoneProtectionListener
-import de.miraculixx.bmbm.territory.events.ZoneValidationListener
-import de.miraculixx.bmbm.utils.APIConnector
-import de.miraculixx.bmbm.utils.GlobalListener
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.ZoneRenderer
+import de.miraculixx.bmbm.booking.events.ZonePlaceListener
+import de.miraculixx.bmbm.booking.events.ZoneProtectionListener
+import de.miraculixx.bmbm.booking.events.ZoneValidationListener
 import de.miraculixx.bmbm.utils.Listener
 import de.miraculixx.bmbm.utils.cache.MarkerImages
 import de.miraculixx.bmbm.utils.config.ConfigManager
@@ -19,9 +17,6 @@ import de.miraculixx.kpaper.main.KPaper
 import de.miraculixx.kpaper.main.KPaperConfiguration
 import dev.jorel.commandapi.CommandAPI
 import dev.jorel.commandapi.CommandAPIPaperConfig
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.File
 import java.util.function.Consumer
 
@@ -33,22 +28,16 @@ class Main : KPaper() {
 
     private lateinit var listener: List<Listener>
     private lateinit var assetsLoader: MarkerImages
-    private lateinit var localizer: Localization
 
     override fun load() {
         CommandAPI.onLoad(CommandAPIPaperConfig(this).silentLogs(true))
 
         dataFolder.mkdir()
-
-//        CoroutineScope(Dispatchers.Default).launch {
-//            APIConnector.checkVersion(description.version.toIntOrNull() ?: 0)
-//        }
     }
 
     override fun startup() {
         INSTANCE = this
         CommandAPI.onEnable()
-        server.pluginManager.registerEvents(GlobalListener, this)
 
         // Setup
         KPaperConfiguration.Events.autoRegistration = false
@@ -80,7 +69,7 @@ class Main : KPaper() {
         localization = Localization(File("${dataFolder}/language"), config.getString("language") ?: "en_US", languages)
         ZoneRenderer.connect(it)
         listener.forEach { listener -> listener.register() }
-        logger.info("Successfully enabled Banner Marker addition!")
+        logger.info("Successfully enabled BlueMap Booking addition!")
     }
 
     private val onBlueMapDisable = Consumer<BlueMapAPI> {

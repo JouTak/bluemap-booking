@@ -1,10 +1,10 @@
-package de.miraculixx.bmbm.territory.events
+package de.miraculixx.bmbm.booking.events
 
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.ZoneRenderer
-import de.miraculixx.bmbm.territory.model.Zone
-import de.miraculixx.bmbm.territory.model.ZoneBanner
-import de.miraculixx.bmbm.territory.model.ZoneType
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.ZoneRenderer
+import de.miraculixx.bmbm.booking.model.Zone
+import de.miraculixx.bmbm.booking.model.ZoneBanner
+import de.miraculixx.bmbm.booking.model.ZoneType
 import de.miraculixx.bmbm.utils.Listener
 import de.miraculixx.bmbm.utils.config.ConfigManager
 import de.miraculixx.bmbm.utils.config.Configs
@@ -38,15 +38,15 @@ class ZonePlaceListener : Listener {
             return@listen
         }
         if (config.getStringList("blocked-words").any { word -> word.equals(name, true) }) return@listen
-        val maxLength = config.getInt("territory.max-name-length", 32)
+        val maxLength = config.getInt("booking.max-name-length", 32)
         if (name.length > maxLength) {
             player.sendMessage(msg("zone.name-too-long", listOf(maxLength.toString())))
             return@listen
         }
 
-        val isState = config.getStringList("territory.state-names").any { stateName -> stateName.equals(name, true) }
+        val isState = config.getStringList("booking.state-prefixes").any { prefix -> name.startsWith(prefix, true) }
         val zone: Zone = if (isState) {
-            if (!player.hasPermission("territory.state.place")) {
+            if (!player.hasPermission("booking.state.place")) {
                 player.sendMessage(msg("zone.state-no-permission", listOf(name)))
                 return@listen
             }
