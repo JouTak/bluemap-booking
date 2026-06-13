@@ -64,11 +64,6 @@ icons can be changed at `assets/marker_<color>.png`. Changes apply after a serve
 `marker/player_markers.json`) is not loaded anymore. Old banners in the world stay as decoration;
 players re-mark their territory with sneak-placed banners.
 
-**From the territory-zones builds (v200/201):** the plugin was renamed, so:
-1. rename the data folder `plugins/BlueMap-BannerMarker` → `plugins/BlueMap-Booking` (keeps `zones.json` and assets),
-2. in `settings.yml` rename the `territory:` section to `booking:` and replace `state-names` with `state-prefixes`,
-3. update LuckPerms permissions: `territory.*` → `booking.*`.
-
 ## Building
 
 ```
