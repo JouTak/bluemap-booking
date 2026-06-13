@@ -3,11 +3,11 @@ package de.miraculixx.bmbm
 import de.bluecolored.bluemap.api.BlueMapAPI
 import de.miraculixx.bmbm.commands.OverviewCommand
 import de.miraculixx.bmbm.map.gui.ClickManager
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.ZoneRenderer
-import de.miraculixx.bmbm.territory.events.ZonePlaceListener
-import de.miraculixx.bmbm.territory.events.ZoneProtectionListener
-import de.miraculixx.bmbm.territory.events.ZoneValidationListener
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.ZoneRenderer
+import de.miraculixx.bmbm.booking.events.ZonePlaceListener
+import de.miraculixx.bmbm.booking.events.ZoneProtectionListener
+import de.miraculixx.bmbm.booking.events.ZoneValidationListener
 import de.miraculixx.bmbm.utils.APIConnector
 import de.miraculixx.bmbm.utils.GlobalListener
 import de.miraculixx.bmbm.utils.Listener

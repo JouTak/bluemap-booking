@@ -1,11 +1,11 @@
-package de.miraculixx.bmbm.territory.events
+package de.miraculixx.bmbm.booking.events
 
 import com.destroystokyo.paper.event.block.BlockDestroyEvent
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.ZoneRenderer
-import de.miraculixx.bmbm.territory.model.BannerPos
-import de.miraculixx.bmbm.territory.model.Zone
-import de.miraculixx.bmbm.territory.model.ZoneType
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.ZoneRenderer
+import de.miraculixx.bmbm.booking.model.BannerPos
+import de.miraculixx.bmbm.booking.model.Zone
+import de.miraculixx.bmbm.booking.model.ZoneType
 import de.miraculixx.bmbm.utils.Listener
 import de.miraculixx.kpaper.event.listen
 import de.miraculixx.kpaper.event.register
@@ -31,8 +31,8 @@ class ZoneProtectionListener : Listener {
         val zone = zoneAt(it.block) ?: return@listen
         val player = it.player
         val allowed = when {
-            player.hasPermission("territory.admin") -> true
-            zone.type == ZoneType.STATE -> player.hasPermission("territory.state.place")
+            player.hasPermission("booking.admin") -> true
+            zone.type == ZoneType.STATE -> player.hasPermission("booking.state.place")
             zone.owner == player.uniqueId -> true
             else -> ZoneManager.isBreakableByEveryone(zone)
         }

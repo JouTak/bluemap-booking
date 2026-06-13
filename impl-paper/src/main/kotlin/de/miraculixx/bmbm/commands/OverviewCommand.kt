@@ -2,8 +2,8 @@ package de.miraculixx.bmbm.commands
 
 import de.miraculixx.bmbm.PluginManager
 import de.miraculixx.bmbm.map.gui.storageBuilder
-import de.miraculixx.bmbm.territory.ZoneManager
-import de.miraculixx.bmbm.territory.model.Zone
+import de.miraculixx.bmbm.booking.ZoneManager
+import de.miraculixx.bmbm.booking.model.Zone
 import de.miraculixx.bmbm.utils.messages.cHighlight
 import de.miraculixx.bmbm.utils.messages.cMark
 import de.miraculixx.kpaper.extensions.bukkit.cmp

@@ -1,4 +1,4 @@
-package de.miraculixx.bmbm.territory.geometry
+package de.miraculixx.bmbm.booking.geometry
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

@@ -1,4 +1,4 @@
-package de.miraculixx.bmbm.territory.geometry
+package de.miraculixx.bmbm.booking.geometry
 
 import kotlin.math.abs
 import kotlin.math.hypot
