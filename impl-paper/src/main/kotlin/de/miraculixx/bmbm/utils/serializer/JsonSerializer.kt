@@ -8,7 +8,6 @@ import kotlinx.serialization.modules.contextual
 val json: Json = Json {
     serializersModule = SerializersModule {
         contextual(UUIDSerializer)
-        contextual(Vector3dSerializer)
     }
     prettyPrint = true
 }
