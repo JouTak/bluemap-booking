@@ -5,6 +5,7 @@ import de.miraculixx.bmbm.commands.OverviewCommand
 import de.miraculixx.bmbm.map.gui.ClickManager
 import de.miraculixx.bmbm.booking.ZoneManager
 import de.miraculixx.bmbm.booking.ZoneRenderer
+import de.miraculixx.bmbm.booking.events.ZoneInfoListener
 import de.miraculixx.bmbm.booking.events.ZonePlaceListener
 import de.miraculixx.bmbm.booking.events.ZoneProtectionListener
 import de.miraculixx.bmbm.booking.events.ZoneValidationListener
@@ -45,7 +46,7 @@ class Main : KPaper() {
         // Load Content
         assetsLoader = MarkerImages()
         ZoneManager.load()
-        listener = listOf(ZonePlaceListener(), ZoneProtectionListener(), ZoneValidationListener(), ClickManager())
+        listener = listOf(ZonePlaceListener(), ZoneProtectionListener(), ZoneValidationListener(), ZoneInfoListener(), ClickManager())
         OverviewCommand()
 
         BlueMapAPI.onEnable(onBlueMapEnable)
