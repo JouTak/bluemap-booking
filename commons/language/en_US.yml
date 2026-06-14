@@ -26,7 +26,9 @@ zone:
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>This banner belongs to the zone <white><input-1></white> and is protected for <input-2> more day(s)"
   # Input 1 -> Max Amount
-  limit: "<red>You reached your max amount of zones! <dark_gray>(<gray><input-1></gray>)<red> Break your old zone banners or extend an existing zone"
+  limit: "<red>You reached your max amount of polygon zones! <dark_gray>(<gray><input-1></gray>)<red> Break banners of an old zone or keep extending an existing one"
+  # Input 1 -> Max Amount
+  point-limit: "<red>You reached your max amount of point markers! <dark_gray>(<gray><input-1></gray>)"
   # Input 1 -> Zone Name
   state-no-permission: "<red>The name <white><input-1></white> is reserved for state territories!"
   # Input 1 -> Max Length

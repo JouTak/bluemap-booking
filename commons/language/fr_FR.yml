@@ -26,7 +26,9 @@ zone:
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>Cette bannière appartient à la zone <white><input-1></white> et reste protégée encore <input-2> jour(s)"
   # Input 1 -> Max Amount
-  limit: "<red>Vous avez atteint votre nombre maximum de zones ! <dark_gray>(<gray><input-1></gray>)"
+  limit: "<red>Vous avez atteint votre nombre maximum de zones polygonales ! <dark_gray>(<gray><input-1></gray>)"
+  # Input 1 -> Max Amount
+  point-limit: "<red>Vous avez atteint votre nombre maximum de marqueurs ponctuels ! <dark_gray>(<gray><input-1></gray>)"
   # Input 1 -> Zone Name
   state-no-permission: "<red>Le nom <white><input-1></white> est réservé aux territoires d'État !"
   # Input 1 -> Max Length

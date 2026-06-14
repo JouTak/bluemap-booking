@@ -32,6 +32,10 @@ object ZoneManager {
 
     fun zonesOf(owner: UUID): List<Zone> = zones.filter { it.owner == owner }
 
+    fun pointsOf(owner: UUID): Int = zones.count { it.type == ZoneType.PLAYER && it.owner == owner && it.banners.size == 1 }
+
+    fun polygonsOf(owner: UUID): Int = zones.count { it.type == ZoneType.PLAYER && it.owner == owner && it.banners.size >= 2 }
+
     fun playerZone(owner: UUID, name: String, world: String): Zone? =
         zones.firstOrNull { it.type == ZoneType.PLAYER && it.owner == owner && it.world == world && it.name.equals(name, true) }
 
@@ -72,13 +76,17 @@ object ZoneManager {
         save()
     }
 
-    fun maxZones(player: Player): Int {
-        val section = ConfigManager.getConfig(Configs.SETTINGS).getConfigurationSection("booking.zone-limit") ?: return 1
-        var max = section.getInt("default", 1)
+    fun maxPolygonZones(player: Player): Int = limit(player, "booking.zone-limit", default = 1)
+
+    fun maxPointZones(player: Player): Int = limit(player, "booking.point-limit", default = -1)
+
+    private fun limit(player: Player, configKey: String, default: Int): Int {
+        val section = ConfigManager.getConfig(Configs.SETTINGS).getConfigurationSection(configKey) ?: return default
+        var max = section.getInt("default", default)
         section.getKeys(false).forEach { rank ->
             if (rank == "default") return@forEach
             val amount = section.getInt(rank)
-            if (player.hasPermission("booking.zone-limit.$rank")) {
+            if (player.hasPermission("$configKey.$rank")) {
                 if (amount == -1) return -1
                 if (amount > max) max = amount
             }
