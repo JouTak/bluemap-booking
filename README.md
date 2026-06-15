@@ -37,6 +37,12 @@ Each full name is its own zone, so `JT - Spawn` and `JT - Roads` are two separat
 Every zone stores its creation date and every banner its placement date. They are shown in the marker
 popup on the web map and drive the protection expiry check (evaluated at break time, nothing is scheduled).
 
+### Banner info on right-click
+
+Right-clicking any zone banner in-world prints the zone info (name, type, owner, founding date,
+protection status, copy-clickable coordinates) into the chat of the clicking player. Useful for
+single-banner zones placed inside builds (e.g. dorm rooms) when you don't want to open the web map.
+
 ## Commands & permissions
 
 | | |
@@ -47,7 +53,8 @@ popup on the web map and drive the protection expiry check (evaluated at break t
 | Permission | Effect |
 |---|---|
 | `bmb.overview` | access to the `/bmb` GUI |
-| `booking.zone-limit.<rank>` | zone limit by rank (`booking.zone-limit` config section, default 1) |
+| `booking.zone-limit.<rank>` | polygon zone limit by rank (`booking.zone-limit` config section, default 1) |
+| `booking.point-limit.<rank>` | point zone limit by rank (`booking.point-limit` config section, default unlimited) |
 | `booking.state.place` | place/break state territory banners |
 | `booking.admin` | break any zone banner |
 

@@ -33,13 +33,21 @@ booking:
   # Value: integer (days)
   protect-days: 30
 
-  # The maximum amount of zones a player can own.
+  # The maximum amount of polygon zones (2+ banners) a player can own.
+  # Checked when creating a new zone with 2 banners or when adding a second banner to a point zone.
   # The highest permission a player owns defines the limit.
   # Permission: booking.zone-limit.<rank> (default applies to everyone)
   # Set to -1 for no limit.
   zone-limit:
     default: 1
     operator: -1
+
+  # The maximum amount of point zones (single banner) a player can own.
+  # Useful for in-build markers (e.g. dorm rooms) - keep it unlimited by default.
+  # Permission: booking.point-limit.<rank> (default applies to everyone)
+  # Set to -1 for no limit.
+  point-limit:
+    default: -1
 
   # Maximum length of a zone name (banner name).
   max-name-length: 32

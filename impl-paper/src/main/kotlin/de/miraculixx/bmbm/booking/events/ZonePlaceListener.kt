@@ -52,13 +52,25 @@ class ZonePlaceListener : Listener {
             }
             ZoneManager.stateZone(name, worldName) ?: ZoneManager.create(name, ZoneType.STATE, null, worldName)
         } else {
-            ZoneManager.playerZone(player.uniqueId, name, worldName) ?: run {
-                val max = ZoneManager.maxZones(player)
-                if (max != -1 && ZoneManager.zonesOf(player.uniqueId).size >= max) {
-                    player.sendMessage(msg("zone.limit", listOf(max.toString())))
-                    return@listen
+            val existing = ZoneManager.playerZone(player.uniqueId, name, worldName)
+            when {
+                existing == null -> {
+                    val max = ZoneManager.maxPointZones(player)
+                    if (max != -1 && ZoneManager.pointsOf(player.uniqueId) >= max) {
+                        player.sendMessage(msg("zone.point-limit", listOf(max.toString())))
+                        return@listen
+                    }
+                    ZoneManager.create(name, ZoneType.PLAYER, player.uniqueId, worldName)
                 }
-                ZoneManager.create(name, ZoneType.PLAYER, player.uniqueId, worldName)
+                existing.banners.size == 1 -> {
+                    val max = ZoneManager.maxPolygonZones(player)
+                    if (max != -1 && ZoneManager.polygonsOf(player.uniqueId) >= max) {
+                        player.sendMessage(msg("zone.limit", listOf(max.toString())))
+                        return@listen
+                    }
+                    existing
+                }
+                else -> existing
             }
         }
 

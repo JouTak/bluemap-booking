@@ -26,13 +26,30 @@ zone:
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>Этот баннер принадлежит зоне <white><input-1></white> и защищён ещё <input-2> дн."
   # Input 1 -> Max Amount
-  limit: "<red>У вас уже максимум зон! <dark_gray>(<gray><input-1></gray>)<red> Снесите баннеры старой зоны или расширяйте существующую"
+  limit: "<red>У вас уже максимум полигональных зон! <dark_gray>(<gray><input-1></gray>)<red> Снесите баннеры старой зоны или расширяйте существующую"
+  # Input 1 -> Max Amount
+  point-limit: "<red>У вас уже максимум точечных меток! <dark_gray>(<gray><input-1></gray>)"
   # Input 1 -> Zone Name
   state-no-permission: "<red>Название <white><input-1></white> зарезервировано под государственные территории!"
   # Input 1 -> Max Length
   name-too-long: "<red>Название зоны не может быть длиннее <input-1> символов!"
   # Input 1 -> World Name
   blocked-world: "<red>Этот мир отключён, зоны в нём не создаются"
+  info:
+    # Input 1 -> Zone Name
+    header: "<dark_gray>──── <white><b><input-1></b></white> ────"
+    type-player: "<gray>Тип: <white>частная территория"
+    type-state: "<gray>Тип: <white>государственная территория"
+    # Input 1 -> Owner Name
+    owner: "<gray>Владелец: <white><input-1>"
+    # Input 1 -> Date
+    founded: "<gray>Основано: <white><input-1>"
+    # Input 1 -> Days Left
+    protection-days: "<gray>Защита: <white>ещё <input-1> дн."
+    protection-expired: "<gray>Защита: <red>истекла"
+    protection-permanent: "<gray>Защита: <green>бессрочная"
+    # Input 1 -> X Y Z
+    coords: "<gray>Координаты: <click:copy_to_clipboard:'<input-1>'><hover:show_text:'<gray>Скопировать'><white><u><input-1></u></white></hover></click>"
   detail:
     type-player: "Частная территория"
     type-state: "Государственная территория"

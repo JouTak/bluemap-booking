@@ -26,13 +26,30 @@ zone:
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>Cette bannière appartient à la zone <white><input-1></white> et reste protégée encore <input-2> jour(s)"
   # Input 1 -> Max Amount
-  limit: "<red>Vous avez atteint votre nombre maximum de zones ! <dark_gray>(<gray><input-1></gray>)"
+  limit: "<red>Vous avez atteint votre nombre maximum de zones polygonales ! <dark_gray>(<gray><input-1></gray>)"
+  # Input 1 -> Max Amount
+  point-limit: "<red>Vous avez atteint votre nombre maximum de marqueurs ponctuels ! <dark_gray>(<gray><input-1></gray>)"
   # Input 1 -> Zone Name
   state-no-permission: "<red>Le nom <white><input-1></white> est réservé aux territoires d'État !"
   # Input 1 -> Max Length
   name-too-long: "<red>Le nom d'une zone ne peut pas dépasser <input-1> caractères !"
   # Input 1 -> World Name
   blocked-world: "<red>Ce monde est désactivé. Aucune zone ne sera créée"
+  info:
+    # Input 1 -> Zone Name
+    header: "<dark_gray>──── <white><b><input-1></b></white> ────"
+    type-player: "<gray>Type : <white>territoire de joueur"
+    type-state: "<gray>Type : <white>territoire d'État"
+    # Input 1 -> Owner Name
+    owner: "<gray>Propriétaire : <white><input-1>"
+    # Input 1 -> Date
+    founded: "<gray>Fondée : <white><input-1>"
+    # Input 1 -> Days Left
+    protection-days: "<gray>Protection : <white>encore <input-1> jour(s)"
+    protection-expired: "<gray>Protection : <red>expirée"
+    protection-permanent: "<gray>Protection : <green>permanente"
+    # Input 1 -> X Y Z
+    coords: "<gray>Coordonnées : <click:copy_to_clipboard:'<input-1>'><hover:show_text:'<gray>Copier'><white><u><input-1></u></white></hover></click>"
   detail:
     type-player: "Territoire de joueur"
     type-state: "Territoire d'État"
