@@ -24,7 +24,7 @@ class ClickManager : Listener {
     private val listener: SingleListener<InventoryClickEvent> = listen {
         val player = it.whoClicked as? Player ?: return@listen
         val title = plainSerializer.serialize(it.view.title())
-        if (!title.startsWith("Banner Zones - ")) return@listen
+        if (!title.startsWith("Booking - ")) return@listen
         it.isCancelled = true
         val item = it.currentItem ?: return@listen
         if (item.itemMeta?.customModel != 1) return@listen
