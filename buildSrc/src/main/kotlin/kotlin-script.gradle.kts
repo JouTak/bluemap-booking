@@ -20,16 +20,16 @@ dependencies {
 tasks {
     compileJava {
         options.encoding = "UTF-8"
-        options.release.set(21)
+        options.release.set(25)
     }
     compileKotlin {
-        compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_25)
     }
 }
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 

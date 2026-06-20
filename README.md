@@ -77,5 +77,5 @@ players re-mark their territory with sneak-placed banners.
 ./gradlew build
 ```
 
-Requires JDK 21. The jar lands in `impl-paper/build/libs/`. Note: this is a 3rd party extension and not
+Requires JDK 25. Targets Paper 26.1.2. The jar lands in `impl-paper/build/libs/`. Note: this is a 3rd party extension and not
 official by BlueMap in any way!
