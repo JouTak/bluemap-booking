@@ -2,4 +2,7 @@
 .idea/
 **run/
 **build/
-.vscode/.kotlin/
+.vscode/
+.kotlin/
+hs_err_pid*.log
+replay_pid*.log

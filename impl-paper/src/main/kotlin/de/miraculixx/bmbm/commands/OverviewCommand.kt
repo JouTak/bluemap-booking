@@ -56,7 +56,7 @@ class OverviewCommand {
 
     private fun openGUI(player: Player, target: OfflinePlayer?, zones: List<Zone>) {
         storageBuilder {
-            title = cmp("Banner Zones - ", cHighlight, bold = true) + cmp(target?.name ?: "Global", cHighlight)
+            title = cmp("Booking - ", cHighlight, bold = true) + cmp(target?.name ?: "Global", cHighlight)
             header = itemStack(Material.PLAYER_HEAD) {
                 meta<SkullMeta> {
                     owningPlayer = target
