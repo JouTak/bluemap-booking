@@ -9,7 +9,7 @@ api-version: "26.1"
 depend:
   - "BlueMap"
 libraries:
-  - "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
+  - "org.jetbrains.kotlin:kotlin-stdlib:2.3.0"
   - "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
   - "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4"
   - "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"

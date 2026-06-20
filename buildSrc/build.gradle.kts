@@ -1,7 +1,7 @@
 plugins {
     `kotlin-dsl`
-    kotlin("jvm") version "1.9.0"
-    kotlin("plugin.serialization") version "2.1.0"
+    kotlin("jvm") version "2.3.0"
+    kotlin("plugin.serialization") version "2.3.0"
 }
 
 repositories {
@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     fun pluginDep(id: String, version: String) = "${id}:${id}.gradle.plugin:${version}"
-    val kotlinVersion = "2.1.0"
+    val kotlinVersion = "2.3.0"
 
     compileOnly(kotlin("gradle-plugin", kotlinVersion))
     runtimeOnly(kotlin("gradle-plugin", kotlinVersion))
@@ -26,5 +26,5 @@ dependencies {
     implementation(pluginDep("com.gradleup.shadow", "9.2.2"))
 }
 kotlin {
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
