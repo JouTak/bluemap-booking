@@ -102,6 +102,7 @@ object ZoneManager {
     }
 
     fun protectionDaysLeft(zone: Zone): Long {
+        if (zone.type == ZoneType.STATE) return Long.MAX_VALUE
         val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("booking.protect-days", 30)
         if (days < 0) return Long.MAX_VALUE
         val remaining = Duration.between(Instant.now(), zone.createdAt.plus(Duration.ofDays(days.toLong())))
