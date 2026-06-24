@@ -25,6 +25,8 @@ zone:
   lost: "<red>Your zone <white><input-1></white> was completely removed - its last banner is gone!"
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>This banner belongs to the zone <white><input-1></white> and is protected for <input-2> more day(s)"
+  # Input 1 -> Zone Name
+  protected-permanent: "<red>This banner belongs to the state zone <white><input-1></white> and is permanently protected"
   # Input 1 -> Max Amount
   limit: "<red>You reached your max amount of polygon zones! <dark_gray>(<gray><input-1></gray>)<red> Break banners of an old zone or keep extending an existing one"
   # Input 1 -> Max Amount
