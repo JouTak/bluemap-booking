@@ -13,10 +13,11 @@ import de.miraculixx.kpaper.items.itemStack
 import de.miraculixx.kpaper.items.meta
 import de.miraculixx.kpaper.items.name
 import de.miraculixx.kpaper.localization.msg
-import dev.jorel.commandapi.kotlindsl.asyncPlayerProfileArgument
+import com.destroystokyo.paper.profile.PlayerProfile
 import dev.jorel.commandapi.kotlindsl.commandTree
 import dev.jorel.commandapi.kotlindsl.literalArgument
 import dev.jorel.commandapi.kotlindsl.playerExecutor
+import dev.jorel.commandapi.kotlindsl.playerProfileArgument
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Material
@@ -41,15 +42,22 @@ class OverviewCommand {
                 openGUI(player, null, ZoneManager.all())
             }
         }
-        asyncPlayerProfileArgument("target") {
+        playerProfileArgument("target") {
             playerExecutor { player, args ->
-                val target = args[0] as OfflinePlayer
-                val zones = ZoneManager.zonesOf(target.uniqueId)
-                if (zones.isEmpty()) {
-                    player.sendMessage(msg("command.no-zones", listOf(target.name ?: "Unknown")))
+                @Suppress("UNCHECKED_CAST")
+                val profile = (args[0] as List<PlayerProfile>).firstOrNull()
+                val targetUuid = profile?.id
+                val targetName = profile?.name ?: "Unknown"
+                if (targetUuid == null) {
+                    player.sendMessage(msg("command.no-zones", listOf(targetName)))
                     return@playerExecutor
                 }
-                openGUI(player, target, zones)
+                val zones = ZoneManager.zonesOf(targetUuid)
+                if (zones.isEmpty()) {
+                    player.sendMessage(msg("command.no-zones", listOf(targetName)))
+                    return@playerExecutor
+                }
+                openGUI(player, Bukkit.getOfflinePlayer(targetUuid), zones)
             }
         }
     }

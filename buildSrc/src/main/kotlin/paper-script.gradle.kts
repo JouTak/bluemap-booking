@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.1.2.build.+")
     compileOnly("de.miraculixx:kpaper:1.2.1")
     compileOnly("dev.jorel:commandapi-paper-core:11.2.0")
     implementation("dev.jorel:commandapi-kotlin-paper:11.2.0")
