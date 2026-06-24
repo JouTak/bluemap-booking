@@ -26,7 +26,7 @@ zone:
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>Этот баннер принадлежит зоне <white><input-1></white> и защищён ещё <input-2> дн."
   # Input 1 -> Zone Name
-  protected-permanent: "<red>Этот баннер принадлежит государственной зоне <white><input-1></white> и защищён бессрочно"
+  protected-permanent: "<red>Этот баннер принадлежит зоне <white><input-1></white> и защищён бессрочно"
   # Input 1 -> Max Amount
   limit: "<red>У вас уже максимум полигональных зон! <dark_gray>(<gray><input-1></gray>)<red> Снесите баннеры старой зоны или расширяйте существующую"
   # Input 1 -> Max Amount
