@@ -51,6 +51,7 @@ object ZoneManager {
     }
 
     fun addBanner(zone: Zone, banner: ZoneBanner) {
+        zone.createdAt = banner.placedAt
         zone.banners.add(banner)
         bannerIndex[BannerPos(zone.world, banner.x, banner.y, banner.z)] = zone
         save()
