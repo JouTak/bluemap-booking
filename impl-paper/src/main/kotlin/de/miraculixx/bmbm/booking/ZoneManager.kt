@@ -21,6 +21,7 @@ import java.io.File
 import java.time.Duration
 import java.time.Instant
 import java.util.UUID
+import kotlin.math.exp
 
 object ZoneManager {
     private val zones = mutableListOf<Zone>()
@@ -95,18 +96,23 @@ object ZoneManager {
         return max
     }
 
-    fun isBreakableByEveryone(zone: Zone): Boolean {
-        if (zone.type == ZoneType.STATE) return false
+    fun protectionExpiresAt(zone: Zone): Instant? {
+        if (zone.type == ZoneType.STATE) return null
         val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("booking.protect-days", 30)
-        if (days < 0) return false
-        return Instant.now().isAfter(zone.createdAt.plus(Duration.ofDays(days.toLong())))
+        if (days < 0) return null
+
+        return zone.createdAt.plus(Duration.ofDays(days.toLong()))
+    }
+
+    fun isBreakableByEveryone(zone: Zone): Boolean {
+        val expiresAt = protectionExpiresAt(zone) ?: return false
+        return Instant.now().isAfter(expiresAt)
     }
 
     fun protectionDaysLeft(zone: Zone): Long {
-        if (zone.type == ZoneType.STATE) return Long.MAX_VALUE
-        val days = ConfigManager.getConfig(Configs.SETTINGS).getInt("booking.protect-days", 30)
-        if (days < 0) return Long.MAX_VALUE
-        val remaining = Duration.between(Instant.now(), zone.createdAt.plus(Duration.ofDays(days.toLong())))
+        val expiresAt = protectionExpiresAt(zone) ?: return Long.MAX_VALUE
+
+        val remaining = Duration.between(Instant.now(),expiresAt)
         return if (remaining.isNegative) 0 else remaining.plusDays(1).minusNanos(1).toDays()
     }
 
