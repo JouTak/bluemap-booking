@@ -25,6 +25,8 @@ zone:
   lost: "<red>Votre zone <white><input-1></white> a été entièrement supprimée - sa dernière bannière a disparu !"
   # Input 1 -> Zone Name | Input 2 -> Days Left
   protected: "<red>Cette bannière appartient à la zone <white><input-1></white> et reste protégée encore <input-2> jour(s)"
+  # Input 1 -> Zone Name
+  protected-permanent: "<red>Cette bannière appartient à la zone <white><input-1></white> et est protégée en permanence"
   # Input 1 -> Max Amount
   limit: "<red>Vous avez atteint votre nombre maximum de zones polygonales ! <dark_gray>(<gray><input-1></gray>)"
   # Input 1 -> Max Amount

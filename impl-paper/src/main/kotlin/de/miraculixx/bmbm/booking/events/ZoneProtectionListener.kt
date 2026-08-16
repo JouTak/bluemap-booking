@@ -39,8 +39,8 @@ class ZoneProtectionListener : Listener {
         if (!allowed) {
             it.isCancelled = true
             val daysLeft = ZoneManager.protectionDaysLeft(zone)
-            val days = if (daysLeft == Long.MAX_VALUE) "∞" else daysLeft.toString()
-            player.sendMessage(msg("zone.protected", listOf(zone.name, days)))
+            val key = if (daysLeft == Long.MAX_VALUE) "zone.protected-permanent" else "zone.protected"
+            player.sendMessage(msg(key, listOf(zone.name, daysLeft.toString())))
             return@listen
         }
         removeBanner(zone, it.block, player)
