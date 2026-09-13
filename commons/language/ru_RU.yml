@@ -58,14 +58,13 @@ zone:
     # Input 1 -> Owner Name
     owner: "Владелец: <input-1>"
     # Input 1 -> Date
-    founded: "Основана: <input-1>"
+    founded: "Последнее обновление: <input-1>"
     # Input 1 -> Banner Amount | Input 2 -> Area
     size: "Баннеров: <input-1> · Площадь: ~<input-2> блоков"
     # Input 1 -> Protection Status
     protection: "Защита: <input-1>"
-    # Input 1 -> Days Left
-    protection-days: "ещё <input-1> дн."
-    protection-expired: "истекла"
+    # Input 1 -> Expiration Date
+    protection-until: "до <input-1>"
     protection-permanent: "бессрочная"
 
 event:

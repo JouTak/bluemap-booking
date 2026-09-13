@@ -30,7 +30,7 @@ data class Zone(
     val type: ZoneType,
     @Contextual val owner: UUID?,
     val world: String,
-    @Serializable(with = InstantSerializer::class) val createdAt: Instant,
+    @Serializable(with = InstantSerializer::class) var createdAt: Instant,
     val banners: MutableList<ZoneBanner> = mutableListOf()
 ) {
     val color: DyeColor get() = banners.maxByOrNull { it.placedAt }?.dye ?: DyeColor.WHITE

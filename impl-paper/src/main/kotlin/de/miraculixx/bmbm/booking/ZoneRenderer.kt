@@ -123,11 +123,17 @@ object ZoneRenderer {
 
     private fun detailHtml(zone: Zone, area: Int): String {
         val type = msgString(if (zone.type == ZoneType.STATE) "zone.detail.type-state" else "zone.detail.type-player")
-        val protection = when {
-            zone.type == ZoneType.STATE || ZoneManager.protectionDaysLeft(zone) == Long.MAX_VALUE -> msgString("zone.detail.protection-permanent")
-            ZoneManager.isBreakableByEveryone(zone) -> msgString("zone.detail.protection-expired")
-            else -> msgString("zone.detail.protection-days", listOf(ZoneManager.protectionDaysLeft(zone).toString()))
+        val expiresAt = ZoneManager.protectionExpiresAt(zone)
+        val protection = if (expiresAt == null){
+            msgString("zone.detail.protection-permanent")
+        } else {
+            msgString(
+                "zone.detail.protection-until",
+                listOf(dateFormat.format(expiresAt))
+            )
         }
+
+
         val lines = mutableListOf("<b>${zone.name.escapeHtml()}</b>", type)
         zone.owner?.let { owner ->
             val name = Bukkit.getOfflinePlayer(owner).name ?: owner.toString().take(8)

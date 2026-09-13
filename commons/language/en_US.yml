@@ -58,14 +58,13 @@ zone:
     # Input 1 -> Owner Name
     owner: "Owner: <input-1>"
     # Input 1 -> Date
-    founded: "Founded: <input-1>"
+    founded: "Last updated: <input-1>"
     # Input 1 -> Banner Amount | Input 2 -> Area
     size: "Banners: <input-1> · Area: ~<input-2> blocks"
     # Input 1 -> Protection Status
     protection: "Protection: <input-1>"
-    # Input 1 -> Days Left
-    protection-days: "<input-1> day(s) left"
-    protection-expired: "expired"
+    # Input 1 -> Expiration Date
+    protection-until: "until <input-1>"
     protection-permanent: "permanent"
 
 event:
